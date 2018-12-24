@@ -7,203 +7,268 @@ std::string Log::logPath = "";
 
 void Log::setLogLevel(const char logLevel)
 {
-	Log::logLevel = logLevel;
+    Log::logLevel = logLevel;
 }
 
 void Log::setLogPath(std::string logPath)
 {
-	// Ä¬ÈÏ·Ö¸ô·ûÎª'/'
-	char seperator = '/';
+    // é»˜è®¤åˆ†éš”ç¬¦ä¸º'/'
+    char seperator = '/';
 
-	// ±éÀú£¬×Ô¶¯ÕÒµ±Ç°Â·¾¶ÖĞµÄ·Ö¸ô·û£»
-	for (std::string::iterator i = logPath.begin();i != logPath.end();i++)
-	{
-		if (*i == '/' || *i == '\\')
-		{
-			seperator = *i;
-			break;
-		}
-	}
+    // éå†ï¼Œè‡ªåŠ¨æ‰¾å½“å‰è·¯å¾„ä¸­çš„åˆ†éš”ç¬¦ï¼›
+    for (std::string::iterator i = logPath.begin();i != logPath.end();i++)
+    {
+        if (*i == '/' || *i == '\\')
+        {
+            seperator = *i;
+            break;
+        }
+    }
 
-	if (logPath.at(logPath.length() - 1) != seperator)
-		logPath += seperator;
+    if (logPath.at(logPath.length() - 1) != seperator)
+        logPath += seperator;
 
-	Log::logPath = logPath;
+    Log::logPath = logPath;
 }
 
 void Log::d(char content)
 {
-	std::string temp;
-	temp.push_back(content);
-	d(temp);
+    std::string temp;
+    temp.push_back(content);
+    d(temp);
 }
 
 void Log::d(short content)
 {
-	d(std::to_string(content));
+    d(std::to_string(content));
 }
 
 void Log::d(int content)
 {
-	d(std::to_string(content));
+    d(std::to_string(content));
+}
+
+void Log::d(long content)
+{
+    d(std::to_string(content));
+}
+
+void Log::d(long long content)
+{
+    d(std::to_string(content));
+}
+
+void Log::d(float content)
+{
+    d(std::to_string(content));
+}
+
+void Log::d(double content)
+{
+    d(std::to_string(content));
 }
 
 void Log::d(char * content)
 {
-	std::string temp;
-	temp.append(content);
-	d(temp);
+    std::string temp;
+    temp.append(content);
+    d(temp);
 }
 
 void Log::d(std::string content)
 {
-	// »ñÈ¡µ±Ç°ÔËĞĞÊ±¼ä£¬¾«È·µ½Ãë
-	time_t timeT = time(NULL);
-	tm time;
-	localtime_s(&time,&timeT);
-	char buffer[50];
-	sprintf_s(buffer,"%d-%02d-%02d %02d:%02d:%02d",
-		time.tm_year + 1900,
-		time.tm_mon + 1,
-		time.tm_mday,
-		time.tm_hour,
-		time.tm_min,
-		time.tm_sec);
+    // è·å–å½“å‰è¿è¡Œæ—¶é—´ï¼Œç²¾ç¡®åˆ°ç§’
+    time_t timeT = time(NULL);
+    tm time;
+    localtime_s(&time,&timeT);
 
-	// ×éÖ¯×Ö·û´®
-	std::string temp;
-	temp.append(buffer);
-	temp += " ";
-	temp += "[debug]: ";
-	temp += content;
+    // ç»„ç»‡å­—ç¬¦ä¸²
+    std::string temp;
+    temp.append(std::to_string(time.tm_year + 1900)); // å¹´
+    temp += "-";
+    temp.append(std::to_string(time.tm_mon + 1)); // æœˆ
+    temp += "-";
+    temp.append(std::to_string(time.tm_mday)); // æ—¥
+    temp += " ";
+    temp.append(std::to_string(time.tm_hour)); // æ—¶
+    temp += ":";
+    temp.append(std::to_string(time.tm_min)); // åˆ†
+    temp += ":";
+    temp.append(std::to_string(time.tm_sec)); // ç§’
+    temp += " ";
+    temp += "[debug]: ";
+    temp += content;
 
-	if (Log::logLevel <= Log::DEBUG)
-		toLogFile(temp);
+    if (Log::logLevel <= Log::DEBUG)
+        toLogFile(temp);
 
-	std::cout << temp.data()<< std::endl;
+    std::cout << temp.data()<< std::endl;
 }
 
 void Log::w(char content)
 {
-	std::string temp;
-	temp.push_back(content);
-	w(temp);
+    std::string temp;
+    temp.push_back(content);
+    w(temp);
 }
 
 void Log::w(short content)
 {
-	w(std::to_string(content));
+    w(std::to_string(content));
 }
 
 void Log::w(int content)
 {
-	w(std::to_string(content));
+    w(std::to_string(content));
+}
+
+void Log::w(long content)
+{
+    w(std::to_string(content));
+}
+
+void Log::w(long long content)
+{
+    w(std::to_string(content));
+}
+
+void Log::w(float content)
+{
+    w(std::to_string(content));
+}
+
+void Log::w(double content)
+{
+    w(std::to_string(content));
 }
 
 void Log::w(char * content)
 {
-	std::string temp;
-	temp.append(content);
-	w(temp);
+    std::string temp;
+    temp.append(content);
+    w(temp);
 }
 
 void Log::w(std::string content)
 {
-	// »ñÈ¡µ±Ç°ÔËĞĞÊ±¼ä£¬¾«È·µ½Ãë
-	time_t timeT = time(NULL);
-	tm time;
-	localtime_s(&time, &timeT);
-	char buffer[50];
-	sprintf_s(buffer, "%d-%02d-%02d %02d:%02d:%02d",
-		time.tm_year + 1900,
-		time.tm_mon + 1,
-		time.tm_mday,
-		time.tm_hour,
-		time.tm_min,
-		time.tm_sec);
+    // è·å–å½“å‰è¿è¡Œæ—¶é—´ï¼Œç²¾ç¡®åˆ°ç§’
+    time_t timeT = time(NULL);
+    tm time;
+    localtime_s(&time, &timeT);
 
-	// ×éÖ¯×Ö·û´®
-	std::string temp;
-	temp.append(buffer);
-	temp += " ";
-	temp += "[warning]: ";
-	temp += content;
+    // ç»„ç»‡å­—ç¬¦ä¸²
+    std::string temp;
+    temp.append(std::to_string(time.tm_year + 1900)); // å¹´
+    temp += "-";
+    temp.append(std::to_string(time.tm_mon + 1)); // æœˆ
+    temp += "-";
+    temp.append(std::to_string(time.tm_mday)); // æ—¥
+    temp += " ";
+    temp.append(std::to_string(time.tm_hour)); // æ—¶
+    temp += ":";
+    temp.append(std::to_string(time.tm_min)); // åˆ†
+    temp += ":";
+    temp.append(std::to_string(time.tm_sec)); // ç§’
+    temp += " ";
+    temp += "[warning]: ";
+    temp += content;
 
-	if (Log::logLevel <= Log::WARNING)
-		toLogFile(temp);
-	std::cout << temp.data() << std::endl;
+    if (Log::logLevel <= Log::WARNING)
+        toLogFile(temp);
+    std::cout << temp.data() << std::endl;
 }
 
 void Log::e(char content)
 {
-	std::string temp;
-	temp.push_back(content);
-	e(temp);
+    std::string temp;
+    temp.push_back(content);
+    e(temp);
 }
 
 void Log::e(short content)
 {
-	e(std::to_string(content));
+    e(std::to_string(content));
 }
 
 void Log::e(int content)
 {
-	e(std::to_string(content));
+    e(std::to_string(content));
+}
+
+void Log::e(long content)
+{
+    e(std::to_string(content));
+}
+
+void Log::e(long long content)
+{
+    e(std::to_string(content));
+}
+
+void Log::e(float content)
+{
+    e(std::to_string(content));
+}
+
+void Log::e(double content)
+{
+    e(std::to_string(content));
 }
 
 void Log::e(char * content)
 {
-	std::string temp;
-	temp.append(content);
-	e(temp);
+    std::string temp;
+    temp.append(content);
+    e(temp);
 }
 
 void Log::e(std::string content)
 {
-	// »ñÈ¡µ±Ç°ÔËĞĞÊ±¼ä£¬¾«È·µ½Ãë
-	time_t timeT = time(NULL);
-	tm time;
-	localtime_s(&time, &timeT);
-	char buffer[50];
-	sprintf_s(buffer, "%d-%02d-%02d %02d:%02d:%02d",
-		time.tm_year + 1900,
-		time.tm_mon + 1,
-		time.tm_mday,
-		time.tm_hour,
-		time.tm_min,
-		time.tm_sec);
+    // è·å–å½“å‰è¿è¡Œæ—¶é—´ï¼Œç²¾ç¡®åˆ°ç§’
+    time_t timeT = time(NULL);
+    tm time;
+    localtime_s(&time, &timeT);
 
-	// ×éÖ¯×Ö·û´®
-	std::string temp;
-	temp.append(buffer);
-	temp += " ";
-	temp += "[error]: ";
-	temp += content;
+    // ç»„ç»‡å­—ç¬¦ä¸²
+    std::string temp;
+    temp.append(std::to_string(time.tm_year + 1900)); // å¹´
+    temp += "-";
+    temp.append(std::to_string(time.tm_mon + 1)); // æœˆ
+    temp += "-";
+    temp.append(std::to_string(time.tm_mday)); // æ—¥
+    temp += " ";
+    temp.append(std::to_string(time.tm_hour)); // æ—¶
+    temp += ":";
+    temp.append(std::to_string(time.tm_min)); // åˆ†
+    temp += ":";
+    temp.append(std::to_string(time.tm_sec)); // ç§’
+    temp += " ";
+    temp += "[error]: ";
+    temp += content;
 
-	if (Log::logLevel <= Log::ERROR)
-		toLogFile(temp);
-	std::cout << temp.data() << std::endl;
+    if (Log::logLevel <= Log::ERROR)
+        toLogFile(temp);
+    std::cout << temp.data() << std::endl;
 }
 
 void Log::toLogFile(std::string content)
 {
-	// »ñÈ¡µ±Ç°ÔËĞĞÊ±¼ä£¬¾«È·µ½Ìì
-	time_t timeT = time(NULL);
-	tm time;
-	localtime_s(&time, &timeT);
-	char buffer[50];
-	sprintf_s(buffer, "%d-%02d-%02d",
-		time.tm_year + 1900,
-		time.tm_mon + 1,
-		time.tm_mday);
+    // è·å–å½“å‰è¿è¡Œæ—¶é—´ï¼Œç²¾ç¡®åˆ°å¤©
+    time_t timeT = time(NULL);
+    tm time;
+    localtime_s(&time, &timeT);
 
-	// Êä³öµ½ÎÄ¼ş
-	std::ofstream out;
-	std::string temp;
-	temp.append(Log::logPath);
-	temp.append(buffer);
-	temp += ".txt";
-	out.open(temp, std::ios::app);
-	out << content<<"\n";
-	out.close();
+    // è¾“å‡ºåˆ°æ–‡ä»¶
+    std::ofstream out;
+    std::string temp;
+    temp.append(Log::logPath);
+    temp.append(std::to_string(time.tm_year + 1900)); // å¹´
+    temp += "-";
+    temp.append(std::to_string(time.tm_mon + 1)); // æœˆ
+    temp += "-";
+    temp.append(std::to_string(time.tm_mday)); // æ—¥
+    temp += ".txt";
+    out.open(temp, std::ios::app);
+    out << content<<"\n";
+    out.close();
 }

@@ -2,10 +2,10 @@
 #define _Log_H_
 
 /*
-*	×÷Õß£ºÅ·ÑôÎ°
-*	ÈÕÆÚ£º2018-12-24
-*	Àà£ºLog
-*	ÓÃÍ¾£ºÇáÁ¿¼¶¿çÆ½Ì¨ÈÕÖ¾¿â£¬²Î¿¼±¾ÏîÄ¿ÖĞµÄmain.cppÊ¹ÓÃ¼´¿É£¬ºÜ·½±ã
+*	ä½œè€…ï¼šæ¬§é˜³ä¼Ÿ
+*	æ—¥æœŸï¼š2018-12-24
+*	ç±»ï¼šLog
+*	ç”¨é€”ï¼šè½»é‡çº§è·¨å¹³å°æ—¥å¿—åº“ï¼Œå‚è€ƒæœ¬é¡¹ç›®ä¸­çš„main.cppä½¿ç”¨å³å¯ï¼Œå¾ˆæ–¹ä¾¿
 */
 
 #include <iostream>
@@ -14,43 +14,55 @@
 class Log
 {
 public:
-	static const char DEBUG = 0;
-	static const char WARNING = 1;
-	static const char ERROR = 2;
+    static const char DEBUG = 0;
+    static const char WARNING = 1;
+    static const char ERROR = 2;
 
-	// debug
-	static void d(char content);
-	static void d(short content);
-	static void d(int content);
-	static void d(char* content);
-	static void d(std::string content);
+    // debug
+    static void d(char content);
+    static void d(short content);
+    static void d(int content);
+    static void d(long content);
+    static void d(long long content);
+    static void d(float content);
+    static void d(double content);
+    static void d(char* content);
+    static void d(std::string content);
 
-	// warning
-	static void w(char content);
-	static void w(short content);
-	static void w(int content);
-	static void w(char* content);
-	static void w(std::string content);
+    // warning
+    static void w(char content);
+    static void w(short content);
+    static void w(int content);
+    static void w(long content);
+    static void w(long long content);
+    static void w(float content);
+    static void w(double content);
+    static void w(char* content);
+    static void w(std::string content);
 
-	// error
-	static void e(char content);
-	static void e(short content);
-	static void e(int content);
-	static void e(char* content);
-	static void e(std::string content);
+    // error
+    static void e(char content);
+    static void e(short content);
+    static void e(int content);
+    static void e(long content);
+    static void e(long long content);
+    static void e(float content);
+    static void e(double content);
+    static void e(char* content);
+    static void e(std::string content);
 
-	// ÉèÖÃÈÕÖ¾µÈ¼¶£¬Log::DEBUG£¬Log::WARNING£¬Log::ERROR
-	static void setLogLevel(const char logLevel);
-	// ÉèÖÃÈÕÖ¾Â·¾¶£¬ÍÆ¼öÊ¹ÓÃ±ê×¼Â·¾¶£¬Èç,D:/
-	static void setLogPath(std::string logPath);
-	
+    // è®¾ç½®æ—¥å¿—ç­‰çº§ï¼ŒLog::DEBUGï¼ŒLog::WARNINGï¼ŒLog::ERROR
+    static void setLogLevel(const char logLevel);
+    // è®¾ç½®æ—¥å¿—è·¯å¾„ï¼Œæ¨èä½¿ç”¨æ ‡å‡†è·¯å¾„ï¼Œå¦‚,D:/
+    static void setLogPath(std::string logPath);
+
 private:
-	// debug£º0£¬warning£º1£¬error£º2
-	static char logLevel;
-	static std::string logPath;
+    // debugï¼š0ï¼Œwarningï¼š1ï¼Œerrorï¼š2
+    static char logLevel;
+    static std::string logPath;
 
-	// Êä³öµ½ÎÄ¼şµÄº¯Êı
-	static void toLogFile(std::string content);
+    // è¾“å‡ºåˆ°æ–‡ä»¶çš„å‡½æ•°
+    static void toLogFile(std::string content);
 };
 
-#endif 
+#endif
