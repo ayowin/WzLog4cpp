@@ -10,19 +10,13 @@ int main()
 {
 	cout << "------begin-------" << endl;
 
-	Log::d('a');
-	Log::d("bbb");
-	Log::d((short)1);
-	Log::d(2);
-	Log::d((char*)"abc");
+	//Log::setLogPath("D:/project");
 
-	cout << "------------内置宏测试-------------" << endl;
+	Log::d("debug");
 
-	Log::d(__LINE__);
-	Log::d(__FILE__);
-	Log::d(__DATE__);
-	Log::d(__TIME__);
+	Log::w("warn");
 
+	Log::e("error");
 
 	cout << "按任意键退出" << endl;
 	getchar();

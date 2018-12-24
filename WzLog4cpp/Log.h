@@ -32,15 +32,18 @@ public:
 	static void e(char* content);
 	static void e(std::string content);
 
+	// 设置日志等级，Log::DEBUG，Log::WARNING，Log::ERROR
 	static void setLogLevel(const char logLevel);
-	static void setFileName(std::string fileName);
+	// 设置日志路径，推荐使用标准路径，如,D:/
+	static void setLogPath(std::string logPath);
 	
 private:
 	// debug：0，warning：1，error：2
 	static char logLevel;
-	static std::string fileName;
+	static std::string logPath;
 
-	static void toLogFile();
+	// 输出到文件的函数
+	static void toLogFile(std::string content);
 };
 
 #endif 
