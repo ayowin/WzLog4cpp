@@ -1,6 +1,13 @@
 #ifndef _Log_H_
 #define _Log_H_
 
+/*
+*	作者：欧阳伟
+*	日期：2018-12-24
+*	类：Log
+*	用途：轻量级跨平台日志库，参考本项目中的main.cpp使用即可，很方便
+*/
+
 #include <iostream>
 #include <string>
 

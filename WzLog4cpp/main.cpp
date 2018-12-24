@@ -12,9 +12,11 @@ int main()
 
 	//Log::setLogPath("D:/project");
 
+	//Log::setLogLevel(Log::WARNING);
+
 	Log::d("debug");
 
-	Log::w("warn");
+	Log::w("warning");
 
 	Log::e("error");
 
